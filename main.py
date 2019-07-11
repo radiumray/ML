@@ -28,14 +28,14 @@ if __name__ == "__main__":
 
     # transform the feature vectors to include the bias term
     # adding 1 to all the instances of the training set.
-    m = x.shape[0]
-    x_train = np.c_[np.ones((m, 1)), x]
+#     m = x.shape[0]
+#     x_train = np.c_[np.ones((m, 1)), x]
 
     # fit/train the model
-    linear_regression_model.fit(x_train, y)
+    linear_regression_model.fit(x, y)
 
     # predict values
-    predicted_values = linear_regression_model.predict(x_train)
+    predicted_values = linear_regression_model.predict(x)
 
     # model parameters
     print(linear_regression_model.w_)

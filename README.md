@@ -82,11 +82,7 @@ plt.show()
 
 训练模型意味着找到参数，以便能用最合适的方式拟合数据。
 
-我们如何确定最合适的生产线？
-这条线为哪条线
-预测值与观测值之间的误差最小称为最佳拟合线或回归线。 这些错误也称为残差。 可以通过从观察数据值到回归线的垂直线来可视化残差。
-
-如果确定最合适的拟合线?</br>
+如何确定最合适的拟合线?</br>
 这条线在哪?</br>
 预测值与观测值之间的误差最小称为最佳拟合线或回归线。</br>
 这些错误也称为残差。</br>
@@ -99,6 +95,11 @@ plt.show()
 ![linerRegressionExamples](images/lrEquation2.png)</br>
 ```py
 1/2m((b0*x0-y0)**2 + (b1*x1-y1)**2 + (b2*x2-y2)**2 + ...... + (bm*xm-ym)**2)
+
+y_pred = np.dot(x, self.w_)
+residuals = y_pred - y
+cost = np.sum((residuals ** 2)) / (2 * m)
+
 ```
 其中假设函数h(x)表示为</br>
 ![linerRegressionExamples](images/lrEquation3.png)</br>
@@ -137,6 +138,14 @@ m是我们数据集中的训练样例总数。</br>
 其中α是学习参数。</br>
 我们可以一次性更新所有参数</br>
 ![linerRegressionExamples](images/lrEquation9.png)</br>
+
+```py
+y_pred = np.dot(x, self.w_)
+residuals = y_pred - y
+gradient_vector = np.dot(x.T, residuals)
+self.w_ -= (self.eta / m) * gradient_vector
+```
+
 我们重复步骤2,3，直到成本函数收敛到最小值。</br>
 如果α的值太小，则成本函数需要更长的时间来收敛。</br>
 如果α太大，则梯度下降可能超过最小值并且最终可能无法收敛。</br>
