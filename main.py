@@ -1,5 +1,4 @@
 import numpy as np
-import matplotlib.pyplot as plt
 from LinearRegression.LinearModel import LinearRegressionUsingGD
 from LinearRegression.Metrics import PerformanceMetrics
 from LinearRegression.Plots import scatter_plot, plot, ploty
@@ -27,25 +26,14 @@ if __name__ == "__main__":
     # generate the data set
     x, y = generate_data_set()
 
-
-    # plt.scatter(x,y,s=10)
-    # plt.xlabel('x')
-    # plt.ylabel('y')
-    # plt.show()
-
-
-
     # transform the feature vectors to include the bias term
     # adding 1 to all the instances of the training set.
     m = x.shape[0]
     x_train = np.c_[np.ones((m, 1)), x]
 
-
     # fit/train the model
     linear_regression_model.fit(x_train, y)
 
-
-    '''
     # predict values
     predicted_values = linear_regression_model.predict(x_train)
 
@@ -70,4 +58,3 @@ if __name__ == "__main__":
     print('The intercept is {}'.format(intercept))
     print('Root mean squared error of the model is {}.'.format(rmse))
     print('R-squared score is {}.'.format(r2_score))
-    '''

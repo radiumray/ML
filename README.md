@@ -1,6 +1,8 @@
 # ML
 机器学习
 
+https://towardsdatascience.com/linear-regression-using-python-b136c91bf0a2
+
 **用python徒手写线性回归：**</br>
 线性回归通常是每个数据科学家遇到的第一个机器学习算法。</br>
 这是一个简单的模型，但每个人都需要掌握它，因为它为其他机器学习算法奠定了基础。</br>
@@ -34,6 +36,9 @@
 
 ![linerRegressionExamples](images/lrEquation0.png)</br>
 y=b0+b1*x1+b2*x2+ ...... +bn*xn</br>
+```py
+y_pred = np.dot(x, self.w_)
+```
 
 Y是预测值
 
@@ -87,5 +92,133 @@ plt.show()
 这些错误也称为残差。</br>
 可以通过从观察数据值到回归线的垂直线来可视化残差。</br>
 ![linerRegressionExamples](images/lrResidual.png)</br>
+
+
+为了定义和测量模型的误差，我们将成本函数定义为残差平方和。</br>
+成本函数表示为:</br>
+![linerRegressionExamples](images/lrEquation2.png)</br>
+```py
+1/2m((b0*x0-y0)**2 + (b1*x1-y1)**2 + (b2*x2-y2)**2 + ...... + (bm*xm-ym)**2)
+```
+其中假设函数h(x)表示为</br>
+![linerRegressionExamples](images/lrEquation3.png)</br>
+m是我们数据集中的训练样例总数。</br>
+
+为什么我们取残差的平方而不是残差的绝对值?</br>
+我们想把那些离回归线远的点惩罚更重一点。</br>
+
+我们的目标是找到模型参数, 使成本函数最小化。</br>
+我们将使用 **Gradient Descent(梯度下降)** 来找到它。</br>
+
+梯度下降
+
+梯度下降是许多机器学习算法中使用的通用优化算法。</br>
+它迭代地调整模型的参数，以最小化成本函数。</br>
+梯度下降的步骤概述如下。</br>
+
+     我们首先使用一些随机值初始化模型参数。 这也称为随机初始化。
+     现在我们需要测量成本函数如何随着参数的变化而变化。 因此，我们将成本函数w.r.t的偏导数计算为参数θ0，θ1，...，θₙ
+
+![linerRegressionExamples](images/lrEquation4.png)</br>
+![linerRegressionExamples](images/lrEquation5.png)</br>
+类似地，成本函数w.r.t对任何参数的偏导数可以表示为</br>
+
+![linerRegressionExamples](images/lrEquation6.png)</br>
+
+我们可以一次计算所有参数的偏导数</br>
+其中h(x)是</br>
+![linerRegressionExamples](images/lrEquation0.png)</br>
+
+     计算导数后，我们更新下面给出的参数
+
+![linerRegressionExamples](images/lrEquation7.png)</br>
+![linerRegressionExamples](images/lrEquation8.png)</br>
+
+其中α是学习参数。</br>
+我们可以一次性更新所有参数</br>
+![linerRegressionExamples](images/lrEquation9.png)</br>
+我们重复步骤2,3，直到成本函数收敛到最小值。</br>
+如果α的值太小，则成本函数需要更长的时间来收敛。</br>
+如果α太大，则梯度下降可能超过最小值并且最终可能无法收敛。</br>
+![linerRegressionExamples](images/lrEquation10.png)</br>
+
+为了演示梯度下降算法，我们用0初始化模型参数。</br>
+方程变为Y = 0.梯度下降算法现在尝试更新参数的值，以便我们到达最佳拟合线。</br>
+当学习速度非常慢时，梯度下降需要更长的时间来找到最佳拟合线。</br>
+![linerRegressionExamples](images/lrShow1.gif)</br>
+当学习率一般时</br>
+![linerRegressionExamples](images/lrShow2.gif)</br>
+当学习速率任意高时，梯度下降算法保持超调最佳拟合线，甚至可能无法找到最佳线。</br>
+![linerRegressionExamples](images/lrShow3.gif)</br>
+
+
+从头开始实现线性回归
+
+下面给出了具有梯度下降的线性回归的完整实现。</br>
+
+```py
+
+# imports
+import numpy as np
+
+
+class LinearRegressionUsingGD:
+    """Linear Regression Using Gradient Descent.
+    Parameters
+    ----------
+    eta : float
+        Learning rate
+    n_iterations : int
+        No of passes over the training set
+    Attributes
+    ----------
+    w_ : weights/ after fitting the model
+    cost_ : total error of the model after each iteration
+    """
+
+    def __init__(self, eta=0.05, n_iterations=1000):
+        self.eta = eta
+        self.n_iterations = n_iterations
+
+    def fit(self, x, y):
+        """Fit the training data
+        Parameters
+        ----------
+        x : array-like, shape = [n_samples, n_features]
+            Training samples
+        y : array-like, shape = [n_samples, n_target_values]
+            Target values
+        Returns
+        -------
+        self : object
+        """
+
+        self.cost_ = []
+        self.w_ = np.zeros((x.shape[1], 1))
+        m = x.shape[0]
+
+        for _ in range(self.n_iterations):
+            y_pred = np.dot(x, self.w_)
+            residuals = y_pred - y
+            gradient_vector = np.dot(x.T, residuals)
+            self.w_ -= (self.eta / m) * gradient_vector
+            cost = np.sum((residuals ** 2)) / (2 * m)
+            self.cost_.append(cost)
+        return self
+
+    def predict(self, x):
+        """ Predicts the value after the model has been trained.
+        Parameters
+        ----------
+        x : array-like, shape = [n_samples, n_features]
+            Test samples
+        Returns
+        -------
+        Predicted value
+        """
+        return np.dot(x, self.w_)
+
+```
+
 
 
