@@ -3,15 +3,15 @@
 # 目录
 
 <a href="Derivative.md">
-    函数求导
+    函数求导</br>
     <img border="0" src="images/derivative/derivativeShow0.jpg" width="30%" height="30%" />
 </a></br>
 <a href="GradientDescent.md">
-    梯度下降
+    梯度下降</br>
     <img border="0" src="images/gd/gdShow0.jpg" width="30%" height="30%" />
 </a></br>
 <a href="LinearRegression.md">
-    线性回归
+    线性回归</br>
     <img border="0" src="images/lr/lrShow2.gif" width="30%" height="30%" />
 </a></br>
 
