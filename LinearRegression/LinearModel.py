@@ -97,13 +97,21 @@ class LinearRegressionUsingGD:
 
         for _ in range(self.n_iterations):
 
+            # 通过当前权重显示拟合线
             self.pltAnima(x, y)
 
+            # 通过当前权重得到数据点x相应的预测y值
             y_pred = np.dot(x_train, self.w_)
+            # 预测的y值和实际的y值的差我们称之为残差
             residuals = y_pred - y
-            gradient_vector = np.dot(x_train.T, residuals)
-            self.w_ -= (self.eta / m) * gradient_vector
+            # 残差的平方和就是成本函数
             cost = np.sum((residuals ** 2)) / (2 * m)
+
+            # 计算所有参数的偏导数向量
+            gradient_vector = np.dot(x_train.T, residuals)
+            # 通过向量更新权重
+            self.w_ -= (self.eta / m) * gradient_vector
+            
             self.cost_.append(cost)
         
         # 关闭交互模式
