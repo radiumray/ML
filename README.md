@@ -229,5 +229,125 @@ class LinearRegressionUsingGD:
 
 ```
 
+模型参数如下所示：</br>
 
+    斜率:[2.89114079]
+    y截距:[2.58109277]
 
+训练后的拟合线为：</br>
+![linerRegressionExamples](images/lrShow1.png)</br>
+
+下面给出了成本函数与迭代次数的关系图。 </br>
+我们可以观察到，成本函数最初随着每次迭代而减小，并且在接近100次迭代之后最终收敛。</br>
+
+![linerRegressionExamples](images/lrShow2.png)</br>
+
+到目前为止，我们已经从头开始实施线性回归，并使用梯度下降来查找模型参数。 </br>
+但是我们的模型有多好？ 我们需要一些措施来计算模型的准确性。 </br>
+让我们看看各种指标来评估我们上面构建的模型。</br>
+
+```评估模型的性能```</br>
+我们将使用均方根误差（RMSE）和确定系数（```R²```得分）来评估我们的模型。</br>
+```RMSE```是残差平方和的平均值的平方根。</br>
+RMSE定义为</br>
+![linerRegressionExamples](images/lrEquation11.png)</br>
+
+```py
+
+# mean squared error
+mse = np.sum((y_pred - y_actual)**2)
+
+# root mean squared error
+# m is the number of training examples
+rmse = np.sqrt(mse/m)
+
+```
+
+RMSE得分为2.764182038967211。</br>
+```R²```分数或```coefficient of determination```通过使用最小二乘回归解释了因变量的总方差可以减少多少。</br>
+R²由一下公式决定</br>
+![linerRegressionExamples](images/lrEquation12.png)
+
+如果我们将观测值的平均值作为预测值，则SSₜ是误差的总和。</br>
+![linerRegressionExamples](images/lrEquation13.png)</br>
+SSᵣ是残差平方和</br>
+![linerRegressionExamples](images/lrEquation14.png)</br>
+```py
+# sum of square of residuals
+ssr = np.sum((y_pred - y_actual)**2)
+#  total sum of squares
+sst = np.sum((y_actual - np.mean(y_actual))**2)
+# R2 score
+r2_score = 1 - (ssr/sst)
+```
+
+    SSₜ - 69.47588572871659
+    SSᵣ - 7.64070234454893
+    R² score - 0.8900236785122296
+
+如果我们使用观测值的平均值作为预测值，则方差为69.47588572871659，如果我们使用回归，则总方差为7.64070234454893。 我们通过回归将预测误差降低了约89％。</br>
+
+现在让我们尝试使用流行的scikit-learn库实现线性回归。</br>
+
+Scikit-learn实现：</br>
+scikit-learn是一个非常强大的数据科学库。 完整的代码如下</br>
+
+```py
+
+# imports
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error, r2_score
+
+# generate random data-set
+np.random.seed(0)
+x = np.random.rand(100, 1)
+y = 2 + 3 * x + np.random.rand(100, 1)
+
+# sckit-learn implementation
+
+# Model initialization
+regression_model = LinearRegression()
+# Fit the data(train the model)
+regression_model.fit(x, y)
+# Predict
+y_predicted = regression_model.predict(x)
+
+# model evaluation
+rmse = mean_squared_error(y, y_predicted)
+r2 = r2_score(y, y_predicted)
+
+# printing values
+print('Slope:' ,regression_model.coef_)
+print('Intercept:', regression_model.intercept_)
+print('Root mean squared error: ', rmse)
+print('R2 score: ', r2)
+
+# plotting values
+
+# data points
+plt.scatter(x, y, s=10)
+plt.xlabel('x')
+plt.ylabel('y')
+
+# predicted values
+plt.plot(x, y_predicted, color='r')
+plt.show()
+
+```
+
+模型参数和模型的性能指标如下：</br>
+
+    斜率[[2.93655106]]
+    y截距[2.55808002]
+    模型的均方根误差为0.07623324582875013。
+    R平方分为0.9038655568672764。
+
+这与我们从头开始实施线性回归时的效果几乎相似。</br>
+
+对于这个博客来说就是这样。 完整的代码可以在这个GitHub仓库中找到。</br>
+
+结论</br>
+
+我们已经了解了线性回归和梯度下降的概念。 我们也使用scikit-learn库实现了该模型。</br>
