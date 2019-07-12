@@ -1,5 +1,4 @@
-# ML
-机器学习
+
 
 https://towardsdatascience.com/linear-regression-using-python-b136c91bf0a2
 
@@ -37,6 +36,7 @@ https://towardsdatascience.com/linear-regression-using-python-b136c91bf0a2
 ![linerRegressionExamples](images/lr/lrEquation0.png)</br>
 y=b0+b1*x1+b2*x2+ ...... +bn*xn</br>
 ```py
+# 通过矩阵乘法得到加权和
 y_pred = np.dot(x, self.w_)
 ```
 
