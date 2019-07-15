@@ -29,39 +29,41 @@ curX_List=[]
 ModeDebug=False
 
 def animate(index):
-    # 清除原有图像
-    plt.cla()
-    # 设定标题等
-    plt.title("梯度下降", fontproperties=myfont)
-    plt.grid(True)
-    # 得到函数y的所有值
-    y = custFunction(x)
-    # 得到函数导数y的所有值
-    # dy = misc.derivative(custFunction, x)
-    # 设置X轴
-    plt.xlabel("X轴", fontproperties=myfont)
-    # 设置Y轴
-    plt.ylabel("Y轴", fontproperties=myfont)
-    # plt.xlim(-10, 10)
-    plt.ylim(-10, 10)
-    # 画曲线
-    plt.plot(x, y, 'r-', linewidth=2.0, alpha=0.5, label="函数")
 
-    indexX=curX_List[index]
+    if(index%2==0): # 用来压缩gif
+        # 清除原有图像
+        plt.cla()
+        # 设定标题等
+        plt.title("梯度下降", fontproperties=myfont)
+        plt.grid(True)
+        # 得到函数y的所有值
+        y = custFunction(x)
+        # 得到函数导数y的所有值
+        # dy = misc.derivative(custFunction, x)
+        # 设置X轴
+        plt.xlabel("X轴", fontproperties=myfont)
+        # 设置Y轴
+        plt.ylabel("Y轴", fontproperties=myfont)
+        # plt.xlim(-10, 10)
+        plt.ylim(-10, 10)
+        # 画曲线
+        plt.plot(x, y, 'r-', linewidth=2.0, alpha=0.5, label="函数")
 
-    # 通过x得到抛物线上的y值
-    indexY=custFunction(indexX)
-    # 把这个点用绿颜色画出来
-    plt.scatter(indexX, indexY, s=30, color='g',  label='下降点')
+        indexX=curX_List[index]
 
-    # GDPLable = "$f(t)=e^{-t} \cos (2 \pi t)$"
-    # 标注这个点目前的值
-    plt.annotate(str(indexX),xy=(indexX,indexY),xytext=(indexX+1,indexY-1),arrowprops=dict(arrowstyle="->",connectionstyle="arc3"))
+        # 通过x得到抛物线上的y值
+        indexY=custFunction(indexX)
+        # 把这个点用绿颜色画出来
+        plt.scatter(indexX, indexY, s=30, color='g',  label='下降点')
 
-    # 设置图例位置,loc可以为[upper, lower, left, right, center]
-    plt.legend(loc="lower right", prop=myfont, shadow=True)
-    # 暂停
-    plt.pause(0.001)
+        # GDPLable = "$f(t)=e^{-t} \cos (2 \pi t)$"
+        # 标注这个点目前的值
+        plt.annotate(str(indexX),xy=(indexX,indexY),xytext=(indexX+1,indexY-1),arrowprops=dict(arrowstyle="->",connectionstyle="arc3"))
+
+        # 设置图例位置,loc可以为[upper, lower, left, right, center]
+        plt.legend(loc="lower right", prop=myfont, shadow=True)
+        # 暂停
+        plt.pause(0.001)
 
 
 def custFunction(x):
