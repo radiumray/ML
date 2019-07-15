@@ -55,32 +55,32 @@ y 从 	  	f(x) 	变到 	f(x+Δx)</br>
     尽量简化
     把 Δx 缩小到零。
 像这样：</br>
-举个例子：函数 f(x) = x^2</br>
-我们知道 f(x) = x^2，也可以计算 f(x+Δx) ：</br>
-开始：f(x+Δx) = (x+Δx)^2</br>
-(x + Δx)^2:f(x+Δx) = x^2 + 2x Δx + (Δx)^2</br>
+举个例子：函数 f(x) = x²</br>
+我们知道 f(x) = x²，也可以计算 f(x+Δx) ：</br>
+开始：f(x+Δx) = (x+Δx)²</br>
+(x + Δx)²:f(x+Δx) = x² + 2x Δx + (Δx)²</br>
 坡度公式是： 	(f(x+Δx) − f(x)) / Δx </br>
-代入 f(x+Δx) 和 f(x)： 	(x^2 + 2x Δx + (Δx)^2 − x^2) / Δx </br>
-简化 (x2 and −x2 约去）： 	(2x Δx + (Δx)^2) / Δx </br>
+代入 f(x+Δx) 和 f(x)： 	(x² + 2x Δx + (Δx)² − x²) / Δx </br>
+简化 (x2 and −x2 约去）： 	(2x Δx + (Δx)²) / Δx </br>
 再简化（除以 Δx）： 	  = 2x + Δx</br>
 当 Δx 趋近 0时，我们得到： 	= 2x</br>
-结果：x^2 的导数是 2x</br>
+结果：x² 的导数是 2x</br>
 我们写 dx，而不写 "Δx 趋近 0"，所以 "的导数" 通常是写成 d/dx</br>
-d/dx * x2 = 2x</br>
-"x^2 的导数等于 2x"</br>
-或 "x^2 的 d dx 等于 2x"</br>
+d/dx * x² = 2x</br>
+"x² 的导数等于 2x"</br>
+或 "x² 的 d dx 等于 2x"</br>
 d/dx * x2 = 2x 的意思是什么？</br>
-意思是，对于函数 x^2，在任何一点的坡度或 "变化率" 是 2x。</br>
+意思是，对于函数 x²，在任何一点的坡度或 "变化率" 是 2x。</br>
 所以当 x=2，坡度是 2x = 4，如图所示：</br>
 或当 x=5，坡度是 2x = 10，以此类推。</br>
 <img border="0" src="images/derivative/slope-x2-2.svg"/></br>
 注意：f’(x) 也是 "的导数" 的另一个写法：</br>
 f’(x) = 2x</br>
 "f(x) 的导数等于 2x"</br>
-希望读者可以在纸上推到全过程。
+**希望读者可以在纸上推到全过程。**</br>
 在线求导工具:</br>
 http://www.nicetool.net/app/derivative.html </br>
-输入(x+5)^2 后得出倒数就是2 * (x+5)</br>
+输入(x+5)² 后得出倒数就是2 * (x+5)</br>
 https://www.derivative-calculator.net/</br>
 
 ## python实现函数求导

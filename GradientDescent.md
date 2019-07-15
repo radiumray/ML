@@ -1,4 +1,7 @@
-https://towardsdatascience.com/implement-gradient-descent-in-python-9b93ed7108d1
+# 梯度下降
+<img border="0" src="images/NuovoCinemaParadiso.jpg"/></br>
+**图片来自电影《天堂电影院》** </br>
+一部老电影。。。</br>
 
 
 什么是梯度下降？</br>
@@ -18,11 +21,6 @@ https://towardsdatascience.com/implement-gradient-descent-in-python-9b93ed7108d1
 **第3步:** 让我们执行2次梯度下降迭代</br>
 ![gradientDescent](images/gd/gdEquation0.png)</br>
 
-
-在线求导工具:</br>
-http://www.nicetool.net/app/derivative.html </br>
-
-输入(x+5)^2 后得出倒数就是2 * (x+5)</br>
 
 **步骤4:** 我们可以观察到X值正在缓慢下降并且应该收敛到-5（局部最小值）。 但是，我们应该执行多少次迭代？</br>
 
@@ -63,3 +61,20 @@ print("The local minimum occurs at", cur_x)
 输出：从下面的输出中，我们可以观察前10次迭代的x值 - 可以通过上面的计算进行交叉检查。 该算法在终止之前运行595次迭代。</br>
 
 ![gradientDescent](images/gd/gdShow2.png)</br>
+
+
+
+<a href="GDToGif.py">GDToGif.py</a>中有完整的实现和代码注释</br>
+修改custFunction里的函数可以在自定义函数梯度下降</br>
+```py
+def custFunction(x):
+    return np.sin(x)
+    # return 3*x*x+2*x+1
+    #  return x*x
+```
+效果如下:</br>
+<img border="0" src="images/gd/gdShow.gif"/>
+<img border="0" src="images/gd/gdShowSin.gif"/>
+
+
+参考：https://towardsdatascience.com/implement-gradient-descent-in-python-9b93ed7108d1</br>
