@@ -22,8 +22,8 @@ numPoint = len(x)
 
 curX_List=[]
 
-# ModeDebug=True
-ModeDebug=False
+ModeDebug=True
+# ModeDebug=False
 
 def animate(index):
 
@@ -61,8 +61,8 @@ def animate(index):
 
 
 def custFunction(x):
-    return np.sin(x)
-    # return 0.3*x*x+2*x+1
+    # return np.sin(x)
+    return np.sin(0.01*x**3)
     # return x**2
     # return (x+5)**2
 
