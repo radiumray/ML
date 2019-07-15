@@ -12,6 +12,7 @@ myfont = fm.FontProperties(fname="simsun.ttc", size=14)
 x = np.arange(-10.0, 10.0, 0.1)
 numPoint = len(x)
 
+# 调试和生成gif开关
 # ModeDebug=True
 ModeDebug=False
 

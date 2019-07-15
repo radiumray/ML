@@ -1,11 +1,8 @@
-
-
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.font_manager as fm
 from scipy import misc
 from matplotlib import animation
-
 
 cur_x = 3 # 初始值x设置为3
 # rate = 0.01 # 学习率
@@ -38,8 +35,6 @@ def animate(index):
         plt.grid(True)
         # 得到函数y的所有值
         y = custFunction(x)
-        # 得到函数导数y的所有值
-        # dy = misc.derivative(custFunction, x)
         # 设置X轴
         plt.xlabel("X轴", fontproperties=myfont)
         # 设置Y轴
@@ -48,9 +43,8 @@ def animate(index):
         plt.ylim(-10, 10)
         # 画曲线
         plt.plot(x, y, 'r-', linewidth=2.0, alpha=0.5, label="函数")
-
+        # 从列表里取出相应x值
         indexX=curX_List[index]
-
         # 通过x得到抛物线上的y值
         indexY=custFunction(indexX)
         # 把这个点用绿颜色画出来
@@ -75,8 +69,6 @@ def custFunction(x):
 
 # 生成画布
 fig = plt.figure(figsize=(8, 6), dpi=80)
-
-
 
 while(previous_step_size > precision and iters < max_iters):
 
