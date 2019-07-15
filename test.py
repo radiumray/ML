@@ -1,5 +1,4 @@
 
-'''
 import numpy as np
 import matplotlib.pyplot as plt
 from LinearRegression.LinearModel import LinearRegressionUsingGD
@@ -58,8 +57,3 @@ if __name__ == "__main__":
     print('Root mean squared error of the model is {}.'.format(rmse))
     print('R-squared score is {}.'.format(r2_score))
 
-'''
-
-for index in range(100):
-        if(index%3==0):
-                print(index)
