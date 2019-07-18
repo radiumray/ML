@@ -1,6 +1,7 @@
-
-
-https://towardsdatascience.com/linear-regression-using-python-b136c91bf0a2
+# 线性回归
+<img border="0" src="images/Shawshank.jpg" width="50%" height="50%"/></br>
+**图片来自电影《肖申克的救赎》** </br>
+这部电影讲了一个如何找到突破口同时降低损失的故事，线性回归主要也是找到一个成本函数同时用梯度下降降低损失</br>
 
 **用python徒手写线性回归：**</br>
 线性回归通常是每个数据科学家遇到的第一个机器学习算法。</br>
@@ -9,11 +10,10 @@ https://towardsdatascience.com/linear-regression-using-python-b136c91bf0a2
 这是一项非常强大的技术，可用于了解影响盈利能力的因素。</br>
 通过分析前几个月的销售数据，它可用于预测未来几个月的销售额。</br>
 它还可用于获取有关客户行为的各种见解。</br>
-在博客结束时，我们将构建一个如下图所示的模型，即确定最适合数据的行。</br>
+下面，我们将构建一个模型对这些蓝色的点拟合出一条最合适的红线</br>
 ![linerRegressionExamples](images/lr/lrExamples.png)</br>
-这是我要介绍的机器学习系列的第一篇博客。</br>
-人们可能会被网络上关于机器学习算法的文章数量所淹没。</br>
-我撰写此博客的目的有两个方面。</br>
+我查阅了一些资料，被网上学习算法文章所淹没</br>
+写下了这些内容，为了两个目的</br>
 它可以作为进入机器学习领域的人的指南，它可以作为我的参考。</br>
 
 目录
@@ -127,22 +127,23 @@ cost = np.sum((residuals ** 2)) / (2 * m)
 它迭代地调整模型的参数，以最小化成本函数。</br>
 梯度下降的步骤概述如下。</br>
 
-     我们首先使用一些随机值初始化模型参数。 这也称为随机初始化。
-     现在我们需要测量成本函数如何随着参数的变化而变化。 因此，我们将成本函数w.r.t的偏导数计算为参数θ0，θ1，...，θₙ
+    初始化模型参数
+    求每个参数的梯度
+    更新后的参数 等于 更新前的参数 减去 学习率 乘以 梯度(thetaNext=thetaThis- learningRate * gradient)
+    在循环中等待收敛(gradient < threshold)
 
-![linerRegressionExamples](images/lr/lrEquation4.png)</br>
-![linerRegressionExamples](images/lr/lrEquation5.png)</br>
-类似地，成本函数w.r.t对任何参数的偏导数可以表示为</br>
-
+损失函数的导函数为:</br>
 ![linerRegressionExamples](images/lr/lrEquation6.png)</br>
 
 我们可以一次计算所有参数的偏导数</br>
 其中h(x)是</br>
 ![linerRegressionExamples](images/lr/lrEquation0.png)</br>
 
-     计算导数后，我们更新下面给出的参数
+    对于用直线拟合点的情况来说，权重有两个 theta0, theta1
 
+theta0(也就是直线在y的截距)的更新公式为:</br>
 ![linerRegressionExamples](images/lr/lrEquation7.png)</br>
+theta1(也就是直线的斜率)的更新公式为:</br>
 ![linerRegressionExamples](images/lr/lrEquation8.png)</br>
 
 其中α是学习参数。</br>
@@ -174,12 +175,11 @@ self.w_ -= (self.eta / m) * gradient_vector
 ![linerRegressionExamples](images/lr/lrShow3.gif)</br>
 
 
-从头开始实现线性回归
+徒手实现线性回归
 
 下面给出了具有梯度下降的线性回归的完整实现。</br>
 
 ```py
-
 # imports
 import numpy as np
 
@@ -240,7 +240,6 @@ class LinearRegressionUsingGD:
         return np.dot(x, self.w_)
 
 ```
-
 模型参数如下所示：</br>
 
     斜率:[2.89114079]
@@ -362,7 +361,8 @@ plt.show()
 
 结论</br>
 
-我们已经了解了线性回归和梯度下降的概念。 我们也使用scikit-learn库实现了该模型。</br>
+至此我们已经了解了线性回归和梯度下降的概念。 我们也使用scikit-learn库实现了该模型。其实线性回归的核心就是梯度下降，梯度下降的数学推导将在
+<a href="MathmaticOfGradientDesentForLR.md">梯度下降的数学推导讲解</a>中详细介绍
+</br>
 
-
-[梯度下降](GradientDescent.md)
+参考:https://towardsdatascience.com/linear-regression-using-python-b136c91bf0a2

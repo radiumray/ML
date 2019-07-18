@@ -21,6 +21,40 @@ class LinearRegressionUsingGD:
         self.eta = eta
         self.n_iterations = n_iterations
 
+
+
+    def showCost(self, x, y):
+
+        m = x.shape[0]
+        x_train = np.c_[np.ones((m, 1)), x]
+
+        self.cost_ = []
+        self.w_ = np.zeros((x_train.shape[1], 1))
+
+        y_pred = np.dot(x_train, self.w_)
+        residuals = y_pred - y
+
+        gradient_vector = np.dot(x_train.T, residuals)
+        print(gradient_vector)
+
+
+        # for _ in range(self.n_iterations):
+        #     y_pred = np.dot(x_train, self.w_)
+        #     residuals = y_pred - y
+        #     cost = np.sum((residuals ** 2)) / (2 * m)
+        #     self.cost_.append(cost)
+
+        #     gradient_vector = np.dot(x_train.T, residuals)
+        #     self.w_ -= (self.eta / m) * gradient_vector
+
+        # return self
+
+
+
+
+
+
+
     def fit(self, x, y):
         """Fit the training data
         Parameters

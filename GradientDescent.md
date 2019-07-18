@@ -58,11 +58,11 @@ def custFunction(x):
     # return x*x
 ```
 效果如下:</br>
-<img border="0" src="images/gd/gdShow.gif"/>
-<img border="0" src="images/gd/gdShowSin.gif"/>
-可以试试这个函数：sin(0.01*x^3)，初始值同样是3，最后下降到了-5最低点</br>
+<img border="0" src="images/gd/gdShow.gif"/></br>
+<img border="0" src="images/gd/gdShowSin.gif"/></br>
+可以试试这个函数：sin(0.01*x^3)，初始值同样是3，最后下降到了-5.2最低点</br>
     return np.sin(0.01*x**3)</br>
-<img border="0" src="images/gd/gdShow3.png"/></br>
+<img border="0" src="images/gd/gdShow3.png" width="50%" height="50%"/></br>
 在线画函数工具：</br>
 https://www.desmos.com/calculator</br>
 
