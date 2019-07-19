@@ -1,119 +1,307 @@
 '''
-from mpl_toolkits.mplot3d import Axes3D
-import matplotlib.pyplot as plt
 import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
+
+learning_rate=0.02
+# precision = 0.000001 #当学习进步幅度小于此值时退出学习算法
+precision = 0.0001 #当学习进步幅度小于此值时退出学习算法
+previous_step_size = 1 # 上一次学习的进步值
+# max_iters = 10000 # 最大迭代次数
+max_iters = 200 # 最大迭代次数
+iters = 0 #当前迭代数
+
+REAL_PARAMS = [-1, 0.5]
 
 numRow=200
 
-X = np.random.uniform(-10, 10, (numRow, 1))
-def custFunction(x):
-    return -1+0.5*x+np.random.randn(numRow, 1)
-# 得到函数y的所有值
-Y = custFunction(X)
 
-X_b=np.c_[np.ones((numRow, 1)), X]
+x = np.linspace(-10, 10, numRow, dtype=np.float32)   # x data
 
-interceptLine=np.linspace(-10, 10, 200)
-slopeLine=np.linspace(-10, 10, 200)
+def custFunction(intercept, slope):
+    return slope*x + intercept
 
-def getCost(intercept, slope):
-    costList=[]
-    lenLine=len(intercept)
-    for i in range(lenLine):
-        theta=np.array(intercept[i],slope[i])
-        y_pred=np.dot(X_b, theta)
-        residuals=y_pred-Y
-        cost=np.sum(residuals**2)/2*numRow
-        costList.append(cost)
-    return costList
+noise = np.random.randn(numRow)/10
+y = custFunction(*REAL_PARAMS) + noise         # target
 
-costList=getCost(interceptLine,slopeLine)
+
+interceptArray=np.linspace(-10, 10, 30)
+slopeArray=np.linspace(-10, 10, 30)
+
+theta_List=[]
+interceptList=[]
+slopeList=[]
+costList = []
+
+
+X_b=np.c_[np.ones((numRow, 1)), x]
+
+theta=np.random.randn(2,1)
+
+while(iters < max_iters):
+    y_pred=np.dot(X_b, theta)
+    residuals=y_pred-y
+    cost=np.sum(residuals**2)/2*numRow
+    costList.append(cost)
+    
+
+    # 2.求梯度gradinet
+    gradients = 1/numRow *X_b.T.dot(X_b.dot(theta)-y)
+    # 3.用公式调整theta值，theta_t+1 = theta_t - grad * learning_rate
+    theta = theta - learning_rate * gradients
+    iters = iters+1 #更新迭代次数
+    theta_List.append(theta)
+
+lenTheta_List=len(theta_List)
+
+
+for index in range(lenTheta_List):
+    intercept, slope = theta_List[index]
+    interceptList.append(intercept[0])
+    slopeList.append(slope[0])
+
+interceptList=np.array(interceptList)
+slopeList=np.array(slopeList)
 costList=np.array(costList)
+
+
+intercept3D, slope3D = np.meshgrid(interceptArray, slopeArray)  # parameter space
+cost3D = np.array([np.mean(np.square(custFunction(intercept, slope) - y)) for intercept, slope in zip(intercept3D.flatten(), slope3D.flatten())]).reshape(intercept3D.shape)
+
+
+
+
+plt.figure(1)
+plt.scatter(x, y, c='b')    # plot data
+
+print('best intercept', interceptList[lenTheta_List-1])
+print('best slope', slopeList[lenTheta_List-1])
+
+
+result=custFunction(interceptList[lenTheta_List-1], slopeList[lenTheta_List-1])
+
+plt.plot(x, result, 'r-', lw=2)   
+'''
+
+'''
+fig = plt.figure(2)
+ax = fig.gca(projection='3d')
+# ax = Axes3D(fig)
+
+
+ax.plot_surface(intercept3D, slope3D, cost3D, rstride=1, cstride=1,
+                cmap=plt.get_cmap('rainbow'), alpha=0.5)
+ax.scatter(interceptList[0], slopeList[0], zs=costList[0],
+           s=300, c='r')  # initial parameter place
+
+
+ax.set_xlabel('intrcept')
+ax.set_ylabel('slope')
+ax.set_zlabel("cost")
+
+
+# print(interceptList)
+
+ax.plot(interceptList, slopeList, zs=costList, zdir='z',
+        c='r', lw=3)    # plot 3D gradient descent
+
+plt.show()
 '''
 
 
-# fig = plt.figure()
-# ax = fig.gca(projection='3d')
- 
-# ax.plot_trisurf(interceptLine, slopeLine, costList, linewidth=0.2, antialiased=True)
- 
-# plt.show()
 
 
 
+'''
+import numpy as np
 
-import tensorflow as tf
+__author__='ray'
+
+numRow=100
+
+X=2* np.random.rand(numRow, 1)
+y=4+3*X+np.random.randn(numRow, 1)
+
+X_b=np.c_[np.ones((numRow, 1)), X]
+
+learning_rate=0.1
+n_iteration=1000
+
+
+# 1.初始化theta, w0,w1..............wn
+theta=np.random.randn(2,1)
+count=0
+
+for iteration in range(n_iteration):
+    count+=1
+    # 2.求梯度gradinet
+    gradients = 1/numRow *X_b.T.dot(X_b.dot(theta)-y)
+    # 3.用公式调整theta值，theta_t+1 = theta_t - grad * learning_rate
+    theta = theta - learning_rate * gradients
+
+print(count)
+print(theta)
+'''
+
+
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.font_manager as fm
+from scipy import misc
+from matplotlib import animation
 from mpl_toolkits.mplot3d import Axes3D
-LR = 0.1
-# REAL_PARAMS = [1.2, 2.5]
-REAL_PARAMS = [0.5, -1]
-INIT_PARAMS = [[5, 4],
-               [5, 1],
-               [2, 4.5]][2]
+
+numRow=100
+
+learning_rate=0.02
+# precision = 0.000001 #当学习进步幅度小于此值时退出学习算法
+precision = 0.0001 #当学习进步幅度小于此值时退出学习算法
+previous_step_size = 1 # 上一次学习的进步值
+max_iters = 10000 # 最大迭代次数
+iters = 0 #当前迭代数
+
+# 解决中文乱码问题
+myfont = fm.FontProperties(fname="simsun.ttc", size=14)
 
 
-x = np.linspace(-1, 1, 200, dtype=np.float32)   # x data
+zoomScale=5.0
 
-
-# def y_fun(a, b): return np.sin(b*np.cos(a*x))
-def y_fun(a, b): return a*x+b
-
-# def tf_y_fun(a, b): return tf.sin(b*tf.cos(a*x))
-def tf_y_fun(a, b): return a*x+b
-
-
-noise = np.random.randn(200)/10
-y = y_fun(*REAL_PARAMS) + noise         # target
-
-# tensorflow graph
-a, b = [tf.Variable(initial_value=p, dtype=tf.float32) for p in INIT_PARAMS]
-
-print('a',a)
-print('b',b)
-
-pred = tf_y_fun(a, b)
-mse = tf.reduce_mean(tf.square(y-pred))
-train_op = tf.train.GradientDescentOptimizer(LR).minimize(mse)
-
-a_list, b_list, cost_list = [], [], []
-with tf.Session() as sess:
-    sess.run(tf.global_variables_initializer())
-    for t in range(400):
-        a_, b_, mse_ = sess.run([a, b, mse])
-        a_list.append(a_)
-        b_list.append(b_)
-        cost_list.append(mse_)    # record parameter changes
-        # training
-        result, _ = sess.run([pred, train_op])
-
-
-# visualization codes:
-print('a=', a_, 'b=', b_)
-plt.figure(1)
-plt.scatter(x, y, c='b')    # plot data
-plt.plot(x, result, 'r-', lw=2)   # plot line fitting
-# 3D cost figure
-fig = plt.figure(2)
-ax = Axes3D(fig)
+interceptArray=np.linspace(-zoomScale, zoomScale, 30)
+slopeArray=np.linspace(-zoomScale, zoomScale, 30)
 
 
 
-a3D, b3D = np.meshgrid(np.linspace(-5, 5, 30),
-                       np.linspace(-5, 5, 30))  # parameter space
+# 生成测试数据
+xLine = np.arange(-zoomScale, zoomScale, 0.1)
+
+# x=5*np.random.rand(numRow, 1)
+x = np.random.uniform(-zoomScale, zoomScale, (numRow, 1))
+
+x_b=np.c_[np.ones((numRow, 1)), x]
+
+def custFunction(x):
+    return -1+0.5*x+np.random.randn(numRow, 1)
+
+def custFunction2(intercept, slope):
+    return slope*x + intercept
+
+# 得到函数y的所有值
+y = custFunction(x)
+
+theta_List=[]
 
 
-cost3D = np.array([np.mean(np.square(y_fun(a_, b_) - y))
-                   for a_, b_ in zip(a3D.flatten(), b3D.flatten())]).reshape(a3D.shape)
+interceptList=[]
+slopeList=[]
+costList = []
+
+ModeDebug=True
+# ModeDebug=False
+
+def animate(index):
+
+    if(index%1==0): # 用来压缩gif
+        # 清除原有图像
+        plt.cla()
+        # 设定标题等
+        plt.title("梯度下降", fontproperties=myfont)
+        plt.grid(True)
 
 
-ax.plot_surface(a3D, b3D, cost3D, rstride=1, cstride=1,
-                cmap=plt.get_cmap('rainbow'), alpha=0.5)
-ax.scatter(a_list[0], b_list[0], zs=cost_list[0],
-           s=300, c='r')  # initial parameter place
-ax.set_xlabel('a')
-ax.set_ylabel('b')
-ax.plot(a_list, b_list, zs=cost_list, zdir='z',
+
+        # # 设置X轴
+        # plt.xlabel("X轴", fontproperties=myfont)
+        # # 设置Y轴
+        # plt.ylabel("Y轴", fontproperties=myfont)
+        # plt.xlim(-zoomScale, zoomScale)
+        # plt.ylim(-zoomScale, zoomScale)
+        # # 画曲线
+        # plt.scatter(x, y, c='r', alpha=0.5, label="散点数据")
+
+        # # 从列表里取出相应x值
+        # intercept, slope =theta_List[index]
+        # yLine = slope*xLine+intercept
+        # plt.plot(xLine, yLine, '-g', label='拟合线')
+
+
+
+        # ax = fig.gca(projection='3d')
+        ax = Axes3D(fig)
+
+        ax.plot_surface(intercept3D, slope3D, cost3D, rstride=1, cstride=1,
+                        cmap=plt.get_cmap('rainbow'), alpha=0.5)
+        ax.scatter(interceptList[index], slopeList[index], costList[index],
+                s=30, c='r')  # initial parameter place
+        ax.set_xlabel('intrcept')
+        ax.set_ylabel('slope')
+        ax.set_zlabel("cost")
+
+        print(costList[index])
+
+        # intercept, slope =theta_List[index]
+        # print('intercept', intercept)
+        # print('slope', slope)
+        ax.plot(interceptList, slopeList, zs=costList, zdir='z',
         c='r', lw=3)    # plot 3D gradient descent
-plt.show()
+
+        plt.legend(loc="lower right", prop=myfont, shadow=True)
+        # 暂停
+        plt.pause(0.001)
+
+
+# 生成画布
+fig = plt.figure(figsize=(8, 6), dpi=80)
+
+theta=np.random.randn(2,1)
+
+while(iters < max_iters):
+
+
+    y_pred=np.dot(x_b, theta)
+    residuals=y_pred-y
+    # cost=np.sum(np.square(residuals))/2*numRow
+    cost=np.mean(np.square(residuals - y))
+    costList.append(cost)
+
+    # 2.求梯度gradinet
+    gradients = 1/numRow *x_b.T.dot(x_b.dot(theta)-y)
+    # 3.用公式调整theta值，theta_t+1 = theta_t - grad * learning_rate
+    theta = theta - learning_rate * gradients
+
+    iters = iters+1 #更新迭代次数
+    # print("Iteration",iters,"\nX value is",cur_x) #打印值
+    theta_List.append(theta)
+
+lenTheta_List=len(theta_List)
+
+for index in range(lenTheta_List):
+    intercept, slope = theta_List[index]
+    interceptList.append(intercept[0])
+    slopeList.append(slope[0])
+
+interceptList=np.array(interceptList)
+slopeList=np.array(slopeList)
+costList=np.array(costList)
+
+intercept3D, slope3D = np.meshgrid(interceptArray, slopeArray)  # parameter space
+cost3D = np.array([np.mean(np.square(custFunction2(intercept, slope) - y)) for intercept, slope in zip(intercept3D.flatten(), slope3D.flatten())]).reshape(intercept3D.shape)
+
+
+
+if(ModeDebug):
+    # 打开交互模式
+    plt.ion()
+
+    for index in range(lenTheta_List):
+        animate(index)
+
+    # 关闭交互模式
+    plt.ioff()
+    # 图形显示
+    plt.show()
+else:
+    anim = animation.FuncAnimation(fig, animate, frames=lenTheta_List)
+    anim.save('hhh.gif', writer='imagemagick', fps=30)
+
+

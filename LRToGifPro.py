@@ -124,7 +124,6 @@ while(iters < max_iters):
 
 lenTheta_List=len(theta_List)
 
-
 if(ModeDebug):
     # 打开交互模式
     plt.ion()

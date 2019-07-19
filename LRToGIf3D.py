@@ -182,7 +182,6 @@ X_b=np.c_[np.ones((numRow, 1)), X]
 theta=np.random.randn(2,1)
 
 while(iters < max_iters):
-
     y_pred=np.dot(X_b, theta)
     residuals=y_pred-Y
     cost=np.sum(residuals**2)/2*numRow

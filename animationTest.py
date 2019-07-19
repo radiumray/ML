@@ -300,6 +300,7 @@ with tf.Session() as sess:
         result, _ = sess.run([pred, train_op])
 
 
+
 # visualization codes:
 print('a=', a_, 'b=', b_)
 plt.figure(1)
@@ -318,6 +319,7 @@ ax.scatter(a_list[0], b_list[0], zs=cost_list[0],
            s=300, c='r')  # initial parameter place
 ax.set_xlabel('a')
 ax.set_ylabel('b')
+
 ax.plot(a_list, b_list, zs=cost_list, zdir='z',
         c='r', lw=3)    # plot 3D gradient descent
 plt.show()
