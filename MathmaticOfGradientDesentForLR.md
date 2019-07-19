@@ -4,7 +4,7 @@
 一个接近神的印度数学家 拉姆奴金 ，擅长无极限问题。在不平等的时代中，从一个默默无闻的贫苦印度少年，离开家乡独自前往英国剑桥求学，在战争的动荡、备受歧视的年代中，受到英国著名数学教授哈代的赏识，两人亦师亦友地互相扶持下，在数学领域上成功挖掘出更美好的成果。</br>
 
 
-![mathmaticLR](images/lr/irEquatiionRay.png)</br>
+![mathmaticLR](images/lr/lrEquatiionRay.png)</br>
 
 
 

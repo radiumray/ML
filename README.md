@@ -27,6 +27,6 @@ AI上路与前行
 <a href="MathmaticOfGradientDesentForLR.md">
     梯度下降在回归中的数学推导</br>
     </br>
-    <!-- <img border="0" src="images/lr/lrShow2.gif" width="40%" height="40%" /> -->
+    <img border="0" src="images/lr/lr3D.png" width="40%" height="40%" />
 </a></br>
 
