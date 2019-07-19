@@ -24,4 +24,9 @@ AI上路与前行
     找到一个成本函数(损失函数),用梯度下降来减少成本(损失)</br>
     <img border="0" src="images/lr/lrShow2.gif" width="40%" height="40%" />
 </a></br>
+<a href="MathmaticOfGradientDesentForLR.md">
+    梯度下降在回归中的数学推导</br>
+    </br>
+    <!-- <img border="0" src="images/lr/lrShow2.gif" width="40%" height="40%" /> -->
+</a></br>
 
