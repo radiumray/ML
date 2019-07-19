@@ -1,30 +1,20 @@
+# 线性回归
+<img border="0" src="images/infinity.jpg" width="50%" height="50%"/></br>
+**图片来自电影《知无涯者》** </br>
+一个接近神的印度数学家 拉姆奴金 ，擅长无极限问题。在不平等的时代中，从一个默默无闻的贫苦印度少年，离开家乡独自前往英国剑桥求学，在战争的动荡、备受歧视的年代中，受到英国著名数学教授哈代的赏识，两人亦师亦友地互相扶持下，在数学领域上成功挖掘出更美好的成果。</br>
+
+
+![mathmaticLR](images/lr/irEquatiionRay.png)</br>
+
+
+
+
+#以下整理中。。。。
 
 
 
 
 
-
-
-
-
-
-
-编程
-
-在这里，我将使用Python来编码线性回归模型。 我使用Python是因为它是我进行数据科学的首选语言。 此外，Python对于专家和初学者都很有用。 该语言是为了便于阅读而制作的，因此无论您是编程多年还是编程一天，通过读懂其他人的代码仍然相当容易。
-
-```py
-def linear_regression(X, y, m_current=0, b_current=0, epochs=1000, learning_rate=0.0001):
-     N = float(len(y))
-     for i in range(epochs):
-          y_current = (m_current * X) + b_current
-          cost = sum([data**2 for data in (y-y_current)]) / N
-          m_gradient = -(2/N) * sum(X * (y - y_current))
-          b_gradient = -(2/N) * sum(y - y_current)
-          m_current = m_current - (learning_rate * m_gradient)
-          b_current = b_current - (learning_rate * b_gradient)
-     return m_current, b_current, cost
-```
 
 为了更简单地理解，让我们举个例子假设你在山顶，你必须到达一个位于山峰最低点的湖泊。 然而，你被蒙上眼睛，你看不到自己的目标。 那么，你将采取什么方法到达湖泊？
 
@@ -49,19 +39,6 @@ return totalError / float(len(points))
 
 ![linerRegressionExamples](images/lr/lrEquation16.png)</br>
 
-```py
-def stepGradient(b_current, m_current, points, learningRate):
-   b_gradient = 0 
-   m_gradient = 0 
-   N = float(len(points)) 
-for i in range(0, len(points)): 
-   b_gradient += -(2/N) * (points[i].y — ((m_current*points[i].x) +  b_current)) 
-   m_gradient += -(2/N) * points[i].x * (points[i].y — ((m_current * points[i].x) + b_current)) 
-
-new_b = b_current — (learningRate * b_gradient) 
-new_m = m_current — (learningRate * m_gradient) 
-return [new_b, new_m]
-```
 
 我们可以认为m和b是有这么多组合的旋钮。我们就不能用暴力吗？不，那是非常低效的。我们可以通过一种称为梯度下降优化的方法来实现这一点。
 

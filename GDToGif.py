@@ -18,6 +18,15 @@ myfont = fm.FontProperties(fname="simsun.ttc", size=14)
 
 # 生成测试数据
 x = np.arange(-10.0, 10.0, 0.1)
+
+def custFunction(x):
+    # return np.sin(x)
+    return np.sin(0.01*x**3)
+    # return x**2
+    # return (x+5)**2
+
+# 得到函数y的所有值
+y = custFunction(x)
 numPoint = len(x)
 
 curX_List=[]
@@ -33,8 +42,6 @@ def animate(index):
         # 设定标题等
         plt.title("梯度下降", fontproperties=myfont)
         plt.grid(True)
-        # 得到函数y的所有值
-        y = custFunction(x)
         # 设置X轴
         plt.xlabel("X轴", fontproperties=myfont)
         # 设置Y轴
@@ -60,11 +67,7 @@ def animate(index):
         plt.pause(0.001)
 
 
-def custFunction(x):
-    # return np.sin(x)
-    return np.sin(0.01*x**3)
-    # return x**2
-    # return (x+5)**2
+
 
 
 # 生成画布
