@@ -278,14 +278,14 @@ def y_fun(a, b): return np.sin(b*np.cos(a*x))
 
 def tf_y_fun(a, b): return tf.sin(b*tf.cos(a*x))
 
-
 noise = np.random.randn(200)/10
 y = y_fun(*REAL_PARAMS) + noise         # target
 
 # tensorflow graph
 a, b = [tf.Variable(initial_value=p, dtype=tf.float32) for p in INIT_PARAMS]
 pred = tf_y_fun(a, b)
-mse = tf.reduce_mean(tf.square(y-pred))
+# mse = tf.reduce_mean(tf.square(y-pred))
+mse = tf.reduce_mean(np.square(y-pred))
 train_op = tf.train.GradientDescentOptimizer(LR).minimize(mse)
 
 a_list, b_list, cost_list = [], [], []
@@ -298,8 +298,6 @@ with tf.Session() as sess:
         cost_list.append(mse_)    # record parameter changes
         # training
         result, _ = sess.run([pred, train_op])
-
-
 
 # visualization codes:
 print('a=', a_, 'b=', b_)

@@ -1,36 +1,4 @@
 
-'''
-import numpy as np
-
-__author__='ray'
-
-numRow=100
-
-X=2* np.random.rand(numRow, 1)
-y=4+3*X+np.random.randn(numRow, 1)
-
-X_b=np.c_[np.ones((numRow, 1)), X]
-
-learning_rate=0.1
-n_iteration=1000
-
-
-# 1.初始化theta, w0,w1..............wn
-theta=np.random.randn(2,1)
-count=0
-
-for iteration in range(n_iteration):
-    count+=1
-    # 2.求梯度gradinet
-    gradients = 1/numRow *X_b.T.dot(X_b.dot(theta)-y)
-    # 3.用公式调整theta值，theta_t+1 = theta_t - grad * learning_rate
-    theta = theta - learning_rate * gradients
-
-print(count)
-print(theta)
-'''
-
-
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.font_manager as fm
@@ -44,7 +12,7 @@ learning_rate=0.02
 # precision = 0.000001 #当学习进步幅度小于此值时退出学习算法
 precision = 0.0001 #当学习进步幅度小于此值时退出学习算法
 previous_step_size = 1 # 上一次学习的进步值
-max_iters = 10000 # 最大迭代次数
+max_iters = 100 # 最大迭代次数
 iters = 0 #当前迭代数
 
 
@@ -67,12 +35,12 @@ y = custFunction(x)
 
 theta_List=[]
 
-ModeDebug=True
-# ModeDebug=False
+# ModeDebug=True
+ModeDebug=False
 
 def animate(index):
 
-    if(index%1==0): # 用来压缩gif
+    if(index%20==0): # 用来压缩gif
         # 清除原有图像
         plt.cla()
         # 设定标题等

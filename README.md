@@ -22,11 +22,12 @@ AI上路与前行
 <a href="LinearRegression.md">
     线性回归</br>
     找到一个成本函数(损失函数),用梯度下降来减少成本(损失)</br>
-    <img border="0" src="images/lr/lrShow2.gif" width="40%" height="40%" />
+    <img border="0" src="images/lr/lrShow.gif" width="40%" height="40%" />
 </a></br>
 <a href="MathmaticOfGradientDesentForLR.md">
     梯度下降在回归中的数学推导</br>
-    </br>
-    <img border="0" src="images/lr/lr3D.png" width="40%" height="40%" />
+    推导过程为机器学习的核心原理，并生成3D图形帮助理解</br>
+    <img border="0" src="images/lr/lr3D.gif" width="40%" height="40%" />
+    <img border="0" src="images/lr/lr3DSin.gif" width="40%" height="40%" />
 </a></br>
 
