@@ -165,32 +165,34 @@ iters = 0 #当前迭代数
 myfont = fm.FontProperties(fname="simsun.ttc", size=14)
 
 
-zoomScale=5.0
+zoomScale=1.0
 
 interceptArray=np.linspace(-zoomScale, zoomScale, 30)
 slopeArray=np.linspace(-zoomScale, zoomScale, 30)
 
-
+REAL_PARAMS = [-1, 0.5]
 
 # 生成测试数据
-xLine = np.arange(-zoomScale, zoomScale, 0.1)
+x = np.linspace(-zoomScale, zoomScale, numRow, dtype=np.float32)
 
-# x=5*np.random.rand(numRow, 1)
-x = np.random.uniform(-zoomScale, zoomScale, (numRow, 1))
+xLen=x.shape[0]
+x=x.reshape((xLen,1))
 
 x_b=np.c_[np.ones((numRow, 1)), x]
 
-def custFunction(x):
-    return -1+0.5*x+np.random.randn(numRow, 1)
-
-def custFunction2(intercept, slope):
-    return slope*x + intercept
+def custFunction(intercept, slope):
+    # return np.sin(intercept * np.cos(slope * x))
+    return slope * x + intercept
 
 # 得到函数y的所有值
-y = custFunction(x)
+noise = np.random.randn(numRow)/10
+
+noiseLen=noise.shape[0]
+noise=noise.reshape((noiseLen,1))
+
+y = custFunction(*REAL_PARAMS) + noise
 
 theta_List=[]
-
 
 interceptList=[]
 slopeList=[]
@@ -209,26 +211,28 @@ def animate(index):
         plt.grid(True)
 
 
+        # 设置X轴
+        plt.xlabel("X轴", fontproperties=myfont)
+        # 设置Y轴
+        plt.ylabel("Y轴", fontproperties=myfont)
+        plt.xlim(-zoomScale, zoomScale)
+        plt.ylim(-zoomScale, zoomScale)
 
-        # # 设置X轴
-        # plt.xlabel("X轴", fontproperties=myfont)
-        # # 设置Y轴
-        # plt.ylabel("Y轴", fontproperties=myfont)
-        # plt.xlim(-zoomScale, zoomScale)
-        # plt.ylim(-zoomScale, zoomScale)
         # # 画曲线
         # plt.scatter(x, y, c='r', alpha=0.5, label="散点数据")
-
         # # 从列表里取出相应x值
         # intercept, slope =theta_List[index]
-        # yLine = slope*xLine+intercept
-        # plt.plot(xLine, yLine, '-g', label='拟合线')
+        # print('inter', intercept)
+        # print('slope', slope)
+
+        # yLine = custFunction(intercept, slope)
+
+        # plt.plot(x, yLine, '-g', label='拟合线')
 
 
 
         # ax = fig.gca(projection='3d')
         ax = Axes3D(fig)
-
         ax.plot_surface(intercept3D, slope3D, cost3D, rstride=1, cstride=1,
                         cmap=plt.get_cmap('rainbow'), alpha=0.5)
         ax.scatter(interceptList[index], slopeList[index], costList[index],
@@ -236,14 +240,13 @@ def animate(index):
         ax.set_xlabel('intrcept')
         ax.set_ylabel('slope')
         ax.set_zlabel("cost")
-
         print(costList[index])
-
         # intercept, slope =theta_List[index]
         # print('intercept', intercept)
         # print('slope', slope)
         ax.plot(interceptList, slopeList, zs=costList, zdir='z',
         c='r', lw=3)    # plot 3D gradient descent
+
 
         plt.legend(loc="lower right", prop=myfont, shadow=True)
         # 暂停
@@ -277,6 +280,7 @@ lenTheta_List=len(theta_List)
 
 for index in range(lenTheta_List):
     intercept, slope = theta_List[index]
+
     interceptList.append(intercept[0])
     slopeList.append(slope[0])
 
@@ -285,7 +289,7 @@ slopeList=np.array(slopeList)
 costList=np.array(costList)
 
 intercept3D, slope3D = np.meshgrid(interceptArray, slopeArray)  # parameter space
-cost3D = np.array([np.mean(np.square(custFunction2(intercept, slope) - y)) for intercept, slope in zip(intercept3D.flatten(), slope3D.flatten())]).reshape(intercept3D.shape)
+cost3D = np.array([np.mean(np.square(custFunction(intercept, slope) - y)) for intercept, slope in zip(intercept3D.flatten(), slope3D.flatten())]).reshape(intercept3D.shape)
 
 
 
