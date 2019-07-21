@@ -246,7 +246,9 @@ class LinearRegressionUsingGD:
     y截距:[2.58109277]
 
 训练后的拟合线为：</br>
-![linerRegressionExamples](images/lr/lrShow1.png)</br>
+<a href="LRToGifPro.py">LRToGifPro.py</a>中实现完整拟合过程和注释</br>
+<img border="0" src="images/lr/lrShow.gif" /></br>
+
 
 下面给出了成本函数与迭代次数的关系图。 </br>
 我们可以观察到，成本函数最初随着每次迭代而减小，并且在接近100次迭代之后最终收敛。</br>
