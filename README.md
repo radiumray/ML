@@ -26,7 +26,7 @@ AI上路与前行
 </a></br>
 <a href="MathmaticOfGradientDesentForLR.md">
     梯度下降在回归中的数学推导</br>
-    推导过程为机器学习的核心原理，并生成3D图形帮助理解</br>
+    推导过程为机器学习的核心原理，作者用python编写了3D动画帮助理解</br>
     <img border="0" src="images/lr/lr3D.gif" width="40%" height="40%" />
     <img border="0" src="images/lr/lr3DSin.gif" width="40%" height="40%" />
 </a></br>
