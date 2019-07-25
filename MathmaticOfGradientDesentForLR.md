@@ -51,9 +51,5 @@ Convex Vs. Non-convex
 <img border="0" src="images/lr/lrmd2.png" />
 <img border="0" src="images/lr/lrmd3.png" />
 
-<!-- 视频推导：</br>
-https://edu.51cto.com/center/course/lesson/index?id=280686 -->
 
-<!-- 线性回归梯度下降推导
-推导线性回归损失函数导函数_以及代码实现批量梯度下降 -->
 

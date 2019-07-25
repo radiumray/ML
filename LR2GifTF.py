@@ -39,7 +39,7 @@ ModeDebug=True
 
 def animate(index):
 
-    if(index%20==0): # 用来压缩gif
+    if(index%1==0): # 用来压缩gif
         # 清除原有图像
         plt.cla()
         # 设定标题等
