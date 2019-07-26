@@ -1,7 +1,7 @@
 import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn.datasets import load_boston
+
 
 def nomalize(X):
     mean = np.mean(X)
