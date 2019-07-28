@@ -48,7 +48,11 @@
 
         人工检查数据是否有问题
 
-        训练机运行一个端到端的模型，根据采集到的数据训练 python manage.py train --tub ./tub/[yourData] --model ./models/[yourModule.h5]
+        训练机运行一个端到端的模型，根据采集到的数据训练 
+        
+        在~/目录下线运行：source env/bin/activate
+        进入(env) 
+        python manage.py train --tub ./tub/[yourData] --model ./models/[yourModule.h5]
 
         采集数据的好坏直接影响到了训练效果
 
